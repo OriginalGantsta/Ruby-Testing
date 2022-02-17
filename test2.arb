@@ -1,0 +1,29 @@
+def story
+    def puzzle
+        puts "Type \"2\""
+        userInput = gets.chomp
+        if (userInput == "q")
+            return "q"
+        elsif (userInput == "2")
+            return "story"
+        else
+            puts "You are an idiot"
+            puzzle
+        end
+    end
+    puzzle 
+end
+
+def storyEngine
+    i = yield
+    if (i == "q")
+        puts "quitting"
+    elsif (i == "story")
+        puts "running Engine"
+        storyEngine{story}
+    else 
+        puts "wtf"
+    end
+end
+
+storyEngine{story}
