@@ -1,6 +1,9 @@
 
 
-$series[1]= -> {
+$series[1]= 
+{
+:requirements => {:completed_episodes => [1,2,3]},
+:storyline => -> {
     def puzzle() 
         puts "Type \"2\""
         userInput = gets.chomp
@@ -14,4 +17,4 @@ $series[1]= -> {
         end
     end
     puzzle() 
-}
+}}

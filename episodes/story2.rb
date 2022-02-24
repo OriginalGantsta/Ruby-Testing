@@ -1,4 +1,6 @@
-$series[2] = lambda do 
+$series[2] = {
+    :requirements => {:completed_episodes => [1,2,3]},
+    :storyline =>lambda do 
     loop do 
         puts "Type \"q\" to save and quit"
         userInput = gets.chomp
@@ -8,12 +10,12 @@ $series[2] = lambda do
             puts "You are an idiot"
         end
     end
-end
+end}
 
 
 #episode_name: string script:string response:{listener : return}
 
 
 
-generate_episode(3, "Type 7", {"7"=>{:continue_episode => 4}})
-generate_episode(4, "Type 8", {"8"=>{:continue_episode => 1}})
+generate_episode(3, "Type 7", {"7"=>{:continue_episode => 4}}, {})
+generate_episode(4, "Type 8", {"8"=>{:continue_episode => 1}}, {:completed_episodes => [1,2,3]})

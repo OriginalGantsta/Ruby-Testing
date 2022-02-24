@@ -1,5 +1,6 @@
 require_relative 'save_game'
 require_relative 'episodes/@series'
+require_relative "requirements/@requirements.rb"
 
 
 
@@ -7,7 +8,7 @@ require_relative 'episodes/@series'
 
 
 def storyEngine(i)
-    story_return = $series[i.to_i].call
+    story_return = $series[i.to_i][:storyline].call
     
     if story_return == "q"
         saveGame
@@ -18,8 +19,15 @@ def storyEngine(i)
     if story_return[:continue_episode] != nil
        storyEngine(story_return[:continue_episode])
     else 
-        puts "running random story"
+        storyEngine(story_randomizer)
     end
 end
+
+define_method (:episode_randomizer){
+    loop do
+        episode_key = $series.keys[rand($series.length)]
+        puts episode_key if requirement_tester($series[episode_key][:requirements])      
+    end
+}xz
 
 storyEngine(3)

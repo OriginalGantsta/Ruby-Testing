@@ -1,7 +1,9 @@
 $series = {}
 
-define_method (:generate_episode){|episode_name, script, responses|
-    $series[episode_name] = lambda do
+define_method (:generate_episode){|episode_name, script, responses, requirements|
+    $series[episode_name] = {
+        :requirements => requirements,
+        :storyline => lambda do
         loop do
             puts script
             userInput = gets.chomp
@@ -16,6 +18,6 @@ define_method (:generate_episode){|episode_name, script, responses|
             end
         end
     end
-}
+}}
 
 Dir[File.join(__dir__, '*.rb')].each {|file| require file}
