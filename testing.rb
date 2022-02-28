@@ -7,27 +7,22 @@ require_relative "requirements/@requirements.rb"
 
 
 
-def storyEngine(i)
-    story_return = $series[i.to_i][:storyline].call
-    
+def storyEngine(episode= episode_randomizer, series = $series)
+    story_return = series[episode].play
     if story_return == "q"
         saveGame
         puts "Closing game..."
         return
-    end
-
-    if story_return[:continue_episode] != nil
-       storyEngine(story_return[:continue_episode])
-    else 
-        storyEngine(story_randomizer)
+    else
+        story_return[:continue_episode] != nil ? storyEngine(story_return[:continue_episode]) : storyEngine
     end
 end
 
-define_method (:episode_randomizer){
+def episode_randomizer
     loop do
         episode_key = $series.keys[rand($series.length)]
-        puts episode_key if requirement_tester($series[episode_key][:requirements])      
+        return episode_key if $series[episode_key].valid          
     end
-}xz
+end
 
-storyEngine(3)
+storyEngine(2)
