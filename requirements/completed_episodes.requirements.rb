@@ -13,4 +13,4 @@ def completed_episodes_judge(completed_episodes)
     return true
 end
 
-Requirement.new(:completed_episodes, method(:completed_episodes_judge))
+$requirements.define_requirement(:completed_episodes, method(:completed_episodes_judge))

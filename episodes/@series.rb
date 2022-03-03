@@ -1,16 +1,27 @@
 require_relative "../requirements/@requirements"
 
-$series = {}
+
+class Series
+    attr_accessor :episode_name, :script, :responses, :requirements
+    attr_reader :series
+    
+    def initialize
+        @series = {}
+    end
+
+    def write_episode (episode_name, script, responses, requirements)
+        @series[episode_name] = Episode.new(script, responses, requirements)
+    end
+
+end
 
 class Episode 
+attr_accessor :script, :responses, :requirements
 
-attr_accessor :episode_name, :script, :responses
-
-    def initialize(episode_name, script, responses, requirements)
+    def initialize(script, responses, requirements)
         @script = script
         @responses = responses
         @audit = Auditor.new(requirements)
-        $series[episode_name] = self
     end
 
     def play
@@ -34,8 +45,10 @@ attr_accessor :episode_name, :script, :responses
     end   
 end
 
+
 Dir[File.join(__dir__, '*.rb')].each do |file| 
     if !file.include? "@series" 
         require file 
     end
 end
+
